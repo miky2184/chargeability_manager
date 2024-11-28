@@ -1,0 +1,24 @@
+<div *ngIf="isLoading">Caricamento in corso...</div>
+<div *ngIf="!isLoading && chargeability.length > 0">
+  <table>
+    <thead>
+      <tr>
+        <th>EID</th>
+        <th>Work Hours</th>
+        <th>CHG %</th>
+        <th>HH NO CHG to Assign</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let report of chargeability">
+        <td>{{ report.eid }}</td>
+        <td>{{ report.work_hh }}</td>
+        <td>{{ report.chg }}</td>
+        <td>{{ report.hh_no_chg_to_assign }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="!isLoading && chargeability.length === 0">
+  Nessun dato disponibile.
+</div>

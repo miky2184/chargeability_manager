@@ -1,0 +1,17 @@
+.spacer {
+  flex: 1 1 auto; /* Fa sì che lo spazio tra il titolo e i link sia dinamico */
+}
+
+mat-toolbar {
+  display: flex;
+  align-items: center;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline; /* Sottolinea il link quando il mouse passa sopra */
+}

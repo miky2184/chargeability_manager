@@ -1,0 +1,28 @@
+<div *ngIf="isLoading">Caricamento in corso...</div>
+<div *ngIf="!isLoading && timeReports.length > 0">
+  <table>
+    <thead>
+      <tr>
+        <th>EID</th>
+        <th>Anno</th>
+        <th>Mese</th>
+        <th>Progetto</th>
+        <th>Ore (TR1)</th>
+        <th>Ore (TR2)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let report of timeReports">
+        <td>{{ report.eid }}</td>
+        <td>{{ report.yy_cal }}</td>
+        <td>{{ report.mm_cal }}</td>
+        <td>{{ report.project_name }}</td>
+        <td>{{ report.work_hh_tr1 }}</td>
+        <td>{{ report.work_hh_tr2 }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<div *ngIf="!isLoading && timeReports.length === 0">
+  Nessun dato disponibile.
+</div>

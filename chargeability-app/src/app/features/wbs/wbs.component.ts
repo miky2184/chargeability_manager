@@ -16,9 +16,9 @@ import { MatSortModule } from '@angular/material/sort';
   styleUrls: ['./wbs.component.css'],
 })
 export class WbsComponent implements OnInit {
-  wbsData: any[] = [];
+  wbsData: any[] = []; // Dati della tabella
+  selectedWbs: any = {}; // Riga selezionata
   isLoading = true;
-  selectedWbs: any = {};
 
   constructor(private wbsService: WbsService) {}
 
@@ -29,59 +29,46 @@ export class WbsComponent implements OnInit {
   loadWbs(): void {
     this.wbsService.getWbs().subscribe(
       (data) => {
-        this.wbsData = data.map((item) => ({ ...item, isSelected: false }));
+        this.wbsData = data;
         this.isLoading = false;
       },
       (error) => {
-        console.error('Errore durante il caricamento della tabella WBS:', error);
+        console.error('Errore durante il caricamento dei dati:', error);
         this.isLoading = false;
       }
     );
   }
 
-  addWbs(newWbs: any): void {
-    this.wbsService.createWbs(newWbs).subscribe(() => this.loadWbs());
-  }
-
-  updateWbs(updatedWbs: any): void {
-    this.wbsService.updateWbs(updatedWbs.wbs, updatedWbs).subscribe(() => this.loadWbs());
-  }
-
-  deleteWbs(id: string): void {
-    this.wbsService.deleteWbs(id).subscribe(() => this.loadWbs());
-  }
-
-  selectWbs(wbs: any): void {
-    this.selectedWbs = { ...wbs }; // Crea una copia dei dati selezionati
-  }
-
-  selectedRowId: string | null = null; // Traccia la riga selezionata
-
   onCheckboxChange(row: any): void {
-    if (row.isSelected) {
-      // Memorizza l'ID della riga selezionata
-      this.selectedRowId = row.wbs;
-      this.selectedWbs = { ...row }; // Popola i campi del modulo
+    if (this.selectedWbs?.wbs === row.wbs) {
+      this.clearSelection(); // Deseleziona se cliccato di nuovo
     } else {
-      this.clearSelection(); // Deseleziona
+      this.selectedWbs = { ...row }; // Copia i dati della riga selezionata
     }
-
-    // Deseleziona tutte le altre righe
-    this.wbsData.forEach((item) => {
-      if (item.wbs !== this.selectedRowId) {
-        item.isSelected = false;
-      }
-    });
   }
 
   clearSelection(): void {
-    this.selectedRowId = null; // Resetta l'ID della riga selezionata
-    this.selectedWbs = {
-      wbs: '',
-      wbs_type: '',
-      project_name: '',
-      budget_mm: null,
-      budget_tot: null,
-    };
+    this.selectedWbs = null; // Resetta a null per indicare che non c'è una riga selezionata
+  }
+
+  addWbs(newWbs: any): void {
+    this.wbsService.createWbs(newWbs).subscribe(() => {
+      this.loadWbs();
+      this.clearSelection();
+    });
+  }
+
+  updateWbs(updatedWbs: any): void {
+    this.wbsService.updateWbs(updatedWbs.wbs, updatedWbs).subscribe(() => {
+      this.loadWbs();
+      this.clearSelection();
+    });
+  }
+
+  deleteWbs(wbs: string): void {
+    this.wbsService.deleteWbs(wbs).subscribe(() => {
+      this.loadWbs();
+      this.clearSelection();
+    });
   }
 }

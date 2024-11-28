@@ -17,7 +17,13 @@ import { MatSortModule } from '@angular/material/sort';
 })
 export class WbsComponent implements OnInit {
   wbsData: any[] = []; // Dati della tabella
-  selectedWbs: any = {}; // Riga selezionata
+  selectedWbs: any = {
+  wbs: '',
+  wbs_type: '',
+  project_name: '',
+  budget_mm: null,
+  budget_tot: null,
+}; // Riga selezionata
   isLoading = true;
 
   constructor(private wbsService: WbsService) {}
@@ -48,8 +54,15 @@ export class WbsComponent implements OnInit {
   }
 
   clearSelection(): void {
-    this.selectedWbs = null; // Resetta a null per indicare che non c'è una riga selezionata
-  }
+  this.selectedWbs = {
+    wbs: '',
+    wbs_type: '',
+    project_name: '',
+    budget_mm: null,
+    budget_tot: null,
+    salvata: false
+  };
+}
 
   addWbs(newWbs: any): void {
     this.wbsService.createWbs(newWbs).subscribe(() => {

@@ -27,65 +27,65 @@
 </ngx-datatable>
 
 <!-- Modulo per aggiornamento e aggiunta -->
-<form (ngSubmit)="selectedWbs?.wbs ? updateWbs(selectedWbs) : addWbs(selectedWbs)">
+<form (ngSubmit)="selectedWbs.salvata ? updateWbs(selectedWbs) : addWbs(selectedWbs)">
   <div class="form-group">
     <input
       type="text"
       [(ngModel)]="selectedWbs.wbs"
       name="wbs"
       placeholder="WBS"
+      class="form-control"
       required
+      [readonly]="selectedWbs.salvata ? true : false"
     />
     <input
       type="text"
       [(ngModel)]="selectedWbs.wbs_type"
       name="wbs_type"
       placeholder="Tipo"
+      class="form-control"
     />
     <input
       type="text"
       [(ngModel)]="selectedWbs.project_name"
       name="project_name"
       placeholder="Progetto"
+      class="form-control"
     />
     <input
       type="number"
       [(ngModel)]="selectedWbs.budget_mm"
       name="budget_mm"
       placeholder="Budget MM"
+      class="form-control"
     />
-
     <input
       type="number"
       [(ngModel)]="selectedWbs.budget_tot"
       name="budget_tot"
       placeholder="Budget Totale"
+      class="form-control"
     />
   </div>
 
-    <!-- Pulsanti -->
-  <div class="button-group">
-    <!-- Bottone "Aggiungi" o "Aggiorna" -->
+  <!-- Pulsanti -->
+  <div class="mt-3">
     <button type="submit" class="btn btn-success">
-      {{ selectedWbs && selectedWbs.wbs ? 'Aggiorna' : 'Aggiungi' }}
+      {{ selectedWbs.salvata ? 'Aggiorna' : 'Aggiungi' }}
     </button>
-
-  <!-- Bottone "Deseleziona" -->
     <button
-      *ngIf="selectedWbs?.wbs"
+      *ngIf="selectedWbs.salvata"
       type="button"
       (click)="clearSelection()"
-      class="btn-deselect"
+      class="btn btn-warning"
     >
       Deseleziona
     </button>
-
-  <!-- Bottone "Elimina" -->
     <button
-      *ngIf="selectedWbs?.wbs"
+      *ngIf="selectedWbs.salvata"
       type="button"
       (click)="deleteWbs(selectedWbs.wbs)"
-      class="btn-delete"
+      class="btn btn-danger"
     >
       Elimina
     </button>

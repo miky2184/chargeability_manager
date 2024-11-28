@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ChargeabilityService {
-  private apiUrl = 'http://miky2184.ddns.net:3001/chargeability';
+  private apiUrl = 'http://miky2184.ddns.net:4000/chargeability';
 
   constructor(private http: HttpClient) {}
 

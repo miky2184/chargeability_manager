@@ -44,7 +44,8 @@ ngx-datatable {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   border: 1px solid #ddd;
   border-radius: 8px;
-  overflow: hidden;
+  max-height: calc(100vh - 150px); /* Calcola lo spazio disponibile sopra il footer */
+  overflow: auto;
 }
 
 ngx-datatable .datatable-header {

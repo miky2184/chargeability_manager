@@ -1,1 +1,60 @@
-<p>wbs works!</p>
+<div *ngIf="isLoading">Caricamento in corso...</div>
+
+<div *ngIf="!isLoading">
+  <ngx-datatable
+    class="bootstrap"
+    [rows]="wbsData"
+    [columns]="[
+      { prop: 'wbs', name: 'WBS' },
+      { prop: 'wbs_type', name: 'Tipo' },
+      { prop: 'project_name', name: 'Progetto' },
+      { prop: 'budget_mm', name: 'Budget MM' },
+      { prop: 'budget_tot', name: 'Budget Totale' }
+    ]"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [limit]="10"
+    (activate)="selectWbs($event.row)"
+  >
+  </ngx-datatable>
+
+  <button *ngIf="selectedWbs" (click)="clearSelection()">Deseleziona</button>
+  <button *ngIf="selectedWbs" (click)="deleteWbs(selectedWbs.wbs)">Elimina</button>
+
+  <form (ngSubmit)="selectedWbs.wbs ? updateWbs(selectedWbs) : addWbs(selectedWbs)">
+  <input
+    type="text"
+    [(ngModel)]="selectedWbs.wbs"
+    name="wbs"
+    placeholder="WBS"
+    required
+  />
+  <input
+    type="text"
+    [(ngModel)]="selectedWbs.wbs_type"
+    name="wbs_type"
+    placeholder="Tipo"
+  />
+  <input
+    type="text"
+    [(ngModel)]="selectedWbs.project_name"
+    name="project_name"
+    placeholder="Progetto"
+  />
+  <input
+    type="number"
+    [(ngModel)]="selectedWbs.budget_mm"
+    name="budget_mm"
+    placeholder="Budget MM"
+  />
+  <input
+    type="number"
+    [(ngModel)]="selectedWbs.budget_tot"
+    name="budget_tot"
+    placeholder="Budget Totale"
+  />
+  <button type="submit">{{ selectedWbs.wbs ? 'Aggiorna' : 'Aggiungi' }}</button>
+</form>
+</div>

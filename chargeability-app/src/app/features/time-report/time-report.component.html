@@ -1,27 +1,26 @@
 <div *ngIf="isLoading">Caricamento in corso...</div>
 <div *ngIf="!isLoading && timeReports.length > 0">
-  <table>
-    <thead>
-      <tr>
-        <th>EID</th>
-        <th>Anno</th>
-        <th>Mese</th>
-        <th>Progetto</th>
-        <th>Ore (TR1)</th>
-        <th>Ore (TR2)</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let report of timeReports">
-        <td>{{ report.eid }}</td>
-        <td>{{ report.yy_cal }}</td>
-        <td>{{ report.mm_cal }}</td>
-        <td>{{ report.project_name }}</td>
-        <td>{{ report.work_hh_tr1 }}</td>
-        <td>{{ report.work_hh_tr2 }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="action-bar">
+    <button mat-raised-button color="primary" (click)="exportToPDF()">Esporta in PDF</button>
+  </div>
+  <ngx-datatable
+    class="bootstrap"
+    [rows]="timeReports"
+    [columns]="[
+      { prop: 'eid', name: 'EID' },
+      { prop: 'yy_cal', name: 'Anno' },
+      { prop: 'mm_cal', name: 'Mese' },
+      { prop: 'project_name', name: 'Progetto' },
+      { prop: 'work_hh_tr1', name: 'Ore (TR1)' },
+      { prop: 'work_hh_tr2', name: 'Ore (TR2)' }
+    ]"
+    [columnMode]="'force'"
+    [headerHeight]="50"
+    [footerHeight]="50"
+    [rowHeight]="'auto'"
+    [limit]="25"
+  >
+  </ngx-datatable>
 </div>
 <div *ngIf="!isLoading && timeReports.length === 0">
   Nessun dato disponibile.

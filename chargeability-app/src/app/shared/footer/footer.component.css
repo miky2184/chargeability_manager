@@ -1,8 +1,15 @@
 footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #3f51b5;
+  color: white;
   text-align: center;
   padding: 10px;
-  color: white;
-  position: relative;
-  bottom: 0;
-  width: 100%;
+  z-index: 10; /* Mantiene il footer sopra gli altri elementi */
+}
+
+.content {
+  margin-bottom: 40px; /* Lascia spazio per il footer fisso */
 }

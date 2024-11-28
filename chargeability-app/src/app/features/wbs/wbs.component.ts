@@ -29,7 +29,7 @@ export class WbsComponent implements OnInit {
   loadWbs(): void {
     this.wbsService.getWbs().subscribe(
       (data) => {
-        this.wbsData = data;
+        this.wbsData = data.map((item) => ({ ...item, isSelected: false }));
         this.isLoading = false;
       },
       (error) => {
@@ -55,7 +55,33 @@ export class WbsComponent implements OnInit {
     this.selectedWbs = { ...wbs }; // Crea una copia dei dati selezionati
   }
 
+  selectedRowId: string | null = null; // Traccia la riga selezionata
+
+  onCheckboxChange(row: any): void {
+    if (row.isSelected) {
+      // Memorizza l'ID della riga selezionata
+      this.selectedRowId = row.wbs;
+      this.selectedWbs = { ...row }; // Popola i campi del modulo
+    } else {
+      this.clearSelection(); // Deseleziona
+    }
+
+    // Deseleziona tutte le altre righe
+    this.wbsData.forEach((item) => {
+      if (item.wbs !== this.selectedRowId) {
+        item.isSelected = false;
+      }
+    });
+  }
+
   clearSelection(): void {
-    this.selectedWbs = null;
+    this.selectedRowId = null; // Resetta l'ID della riga selezionata
+    this.selectedWbs = {
+      wbs: '',
+      wbs_type: '',
+      project_name: '',
+      budget_mm: null,
+      budget_tot: null,
+    };
   }
 }

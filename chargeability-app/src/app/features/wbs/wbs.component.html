@@ -1,10 +1,12 @@
 <div *ngIf="isLoading">Caricamento in corso...</div>
 
 <div *ngIf="!isLoading">
+  <!-- Tabella dei dati -->
   <ngx-datatable
     class="bootstrap"
     [rows]="wbsData"
     [columns]="[
+      { name: '', cellTemplate: checkboxColumn },
       { prop: 'wbs', name: 'WBS' },
       { prop: 'wbs_type', name: 'Tipo' },
       { prop: 'project_name', name: 'Progetto' },
@@ -18,43 +20,58 @@
     [limit]="10"
     (activate)="selectWbs($event.row)"
   >
+  <!-- Template per la checkbox -->
+  <ng-template #checkboxColumn let-row="row">
+    <input
+      type="checkbox"
+      [checked]="row.wbs === selectedRowId"
+      (change)="onCheckboxChange(row)"
+    />
+  </ng-template>
   </ngx-datatable>
 
-  <button *ngIf="selectedWbs" (click)="clearSelection()">Deseleziona</button>
-  <button *ngIf="selectedWbs" (click)="deleteWbs(selectedWbs.wbs)">Elimina</button>
+  <!-- Pulsanti di azione -->
+  <div class="action-buttons">
+    <button *ngIf="selectedWbs" (click)="clearSelection()">Deseleziona</button>
+    <button *ngIf="selectedWbs" (click)="deleteWbs(selectedWbs.wbs)">Elimina</button>
+  </div>
 
+  <!-- Modulo -->
   <form (ngSubmit)="selectedWbs.wbs ? updateWbs(selectedWbs) : addWbs(selectedWbs)">
-  <input
-    type="text"
-    [(ngModel)]="selectedWbs.wbs"
-    name="wbs"
-    placeholder="WBS"
-    required
-  />
-  <input
-    type="text"
-    [(ngModel)]="selectedWbs.wbs_type"
-    name="wbs_type"
-    placeholder="Tipo"
-  />
-  <input
-    type="text"
-    [(ngModel)]="selectedWbs.project_name"
-    name="project_name"
-    placeholder="Progetto"
-  />
-  <input
-    type="number"
-    [(ngModel)]="selectedWbs.budget_mm"
-    name="budget_mm"
-    placeholder="Budget MM"
-  />
-  <input
-    type="number"
-    [(ngModel)]="selectedWbs.budget_tot"
-    name="budget_tot"
-    placeholder="Budget Totale"
-  />
-  <button type="submit">{{ selectedWbs.wbs ? 'Aggiorna' : 'Aggiungi' }}</button>
-</form>
+    <div class="form-group">
+      <input
+        type="text"
+        [(ngModel)]="selectedWbs.wbs"
+        name="wbs"
+        placeholder="WBS"
+        required
+        [readonly]="selectedWbs.wbs ? true : false"
+      />
+      <input
+        type="text"
+        [(ngModel)]="selectedWbs.wbs_type"
+        name="wbs_type"
+        placeholder="Tipo"
+      />
+      <input
+        type="text"
+        [(ngModel)]="selectedWbs.project_name"
+        name="project_name"
+        placeholder="Progetto"
+      />
+      <input
+        type="number"
+        [(ngModel)]="selectedWbs.budget_mm"
+        name="budget_mm"
+        placeholder="Budget MM"
+      />
+      <input
+        type="number"
+        [(ngModel)]="selectedWbs.budget_tot"
+        name="budget_tot"
+        placeholder="Budget Totale"
+      />
+    </div>
+    <button type="submit">{{ selectedWbs.wbs ? 'Aggiorna' : 'Aggiungi' }}</button>
+  </form>
 </div>

@@ -8,11 +8,13 @@
     [rows]="timeReports"
     [columns]="[
       { prop: 'eid', name: 'EID' },
-      { prop: 'yy_cal', name: 'Anno' },
-      { prop: 'mm_cal', name: 'Mese' },
-      { prop: 'project_name', name: 'Progetto' },
-      { prop: 'work_hh_tr1', name: 'Ore (TR1)' },
-      { prop: 'work_hh_tr2', name: 'Ore (TR2)' }
+      { prop: 'wbs', name: 'WBS' },
+      { prop: 'fiscal_year', name: 'FY' },
+      { prop: 'yy_cal', name: 'Anno Calendario' },
+      { prop: 'mm_cal', name: 'Mese Calendario' },
+      { prop: 'fortnight', name: 'Quindicina' },
+      { prop: 'work_hh', name: 'H lavorate' },
+      { prop: 'fl_forecast', name: 'Flag Forecast' },
     ]"
     [columnMode]="'force'"
     [headerHeight]="50"

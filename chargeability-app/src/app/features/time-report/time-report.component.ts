@@ -42,7 +42,7 @@ export class TimeReportComponent implements OnInit {
 
     // Aggiungi titolo
     doc.setFontSize(16);
-    doc.text('Time Reports', 10, 10);
+    doc.text('Report', 10, 10);
 
     // Genera la tabella
     autoTable(doc, {

@@ -1,1 +1,115 @@
-<p>employee-management works!</p>
+<ngx-datatable
+  class="bootstrap"
+  [rows]="resourceData"
+  [columns]="[
+    { name: '', cellTemplate: checkboxColumn },
+    { prop: 'eid', name: 'EID' },
+    { prop: 'last_name', name: 'Cognome' },
+    { prop: 'first_name', name: 'Nome' },
+    { prop: 'level', name: 'Livello' },
+    { prop: 'loaded_cost', name: 'LDR' },
+    { prop: 'office', name: 'Sede' },
+    { prop: 'dte', name: 'DTE' },
+  ]"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [limit]="10"
+>
+  <!-- Template della checkbox -->
+  <ng-template #checkboxColumn let-row="row">
+    <input
+      type="radio"
+      name="rowSelection"
+      [checked]="row.eid === selectedResource?.eid"
+      (change)="onCheckboxChange(row)"
+    />
+  </ng-template>
+</ngx-datatable>
+
+<!-- Modulo per aggiornamento e aggiunta -->
+<form (ngSubmit)="selectedResource.salvata ? updateResource(selectedResource) : addResource(selectedResource)">
+  <div class="form-group">
+    <input
+      type="text"
+      [(ngModel)]="selectedResource.eid"
+      name="eid"
+      placeholder="EID"
+      class="form-control"
+      required
+      [readonly]="selectedResource.salvata ? true : false"
+    />
+    <input
+      type="text"
+      [(ngModel)]="selectedResource.last_name"
+      name="last_name"
+      placeholder="Cognome"
+      class="form-control"
+      required
+    />
+    <input
+      type="text"
+      [(ngModel)]="selectedResource.first_name"
+      name="first_name"
+      placeholder="Nome"
+      class="form-control"
+      required
+    />
+    <input
+      type="text"
+      [(ngModel)]="selectedResource.level"
+      name="level"
+      placeholder="Livello"
+      class="form-control"
+      required
+    />
+    <input
+      type="number"
+      [(ngModel)]="selectedResource.loaded_cost"
+      name="loaded_cost"
+      placeholder="LDR"
+      class="form-control"
+      required
+    />
+        <input
+      type="text"
+      [(ngModel)]="selectedResource.office"
+      name="office"
+      placeholder="Sede"
+      class="form-control"
+      required
+    />
+        <input
+      type="text"
+      [(ngModel)]="selectedResource.dte"
+      name="dte"
+      placeholder="DTE"
+      class="form-control"
+      required
+    />
+  </div>
+
+  <!-- Pulsanti -->
+  <div class="mt-3">
+    <button type="submit" class="btn btn-success">
+      {{ selectedResource.salvata ? 'Aggiorna' : 'Aggiungi' }}
+    </button>
+    <button
+      *ngIf="selectedResource.salvata"
+      type="button"
+      (click)="clearSelection()"
+      class="btn btn-warning"
+    >
+      Deseleziona
+    </button>
+    <button
+      *ngIf="selectedResource.salvata"
+      type="button"
+      (click)="deleteResource(selectedResource.eid)"
+      class="btn btn-danger"
+    >
+      Elimina
+    </button>
+  </div>
+</form>

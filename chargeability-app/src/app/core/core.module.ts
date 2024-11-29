@@ -1,19 +1,26 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { NavbarComponent } from '../shared/navbar/navbar.component';
 import { FooterComponent } from '../shared/footer/footer.component';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
-    NavbarComponent, // Dichiarazione del componente Navbar
-    FooterComponent, // Dichiarazione del componente Footer
+    NavbarComponent, // Navbar
+    FooterComponent, // Footer
   ],
   imports: [
-    CommonModule, // Necessario per le direttive Angular di base
+    CommonModule, // Direttive come *ngIf e *ngFor
+    FormsModule,  // Per [(ngModel)]
   ],
   exports: [
-    NavbarComponent, // Esporta il componente Navbar
-    FooterComponent, // Esporta il componente Footer
+    NavbarComponent, // Per essere usato in altri moduli
+    FooterComponent, // Per essere usato in altri moduli
+  ],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
   ],
 })
 export class CoreModule {}

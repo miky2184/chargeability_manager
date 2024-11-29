@@ -4,12 +4,35 @@ import { TimeReportComponent } from './features/time-report/time-report.componen
 import { EmployeeManagementComponent } from './features/employee-management/employee-management.component';
 import { WbsComponent } from './features/wbs/wbs.component';
 import { ChargeabilityComponent } from './features/chargeability/chargeability.component';
+import { LoginComponent } from './features/login/login.component'; // Importa il componente di login
+import { AuthGuard } from './guards/auth.guard'; // Importa il guard
 
 export const routes: Routes = [
+  { path: 'login', component: LoginComponent }, // Rotta per il login
   { path: '', redirectTo: 'dashboard', pathMatch: 'full' }, // Rotta di default
-  { path: 'dashboard', component: DashboardComponent },
-  { path: 'time-reports', component: TimeReportComponent },
-  { path: 'employees', component: EmployeeManagementComponent },
-  { path: 'wbs', component: WbsComponent },
-  { path: 'chargeability', component: ChargeabilityComponent },
+  {
+    path: 'dashboard',
+    component: DashboardComponent,
+    canActivate: [AuthGuard], // Protezione con AuthGuard
+  },
+  {
+    path: 'time-reports',
+    component: TimeReportComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'employees',
+    component: EmployeeManagementComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'wbs',
+    component: WbsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'chargeability',
+    component: ChargeabilityComponent,
+    canActivate: [AuthGuard],
+  },
 ];

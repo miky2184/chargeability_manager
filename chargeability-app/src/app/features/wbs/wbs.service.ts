@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class WbsService {
-  private apiUrl = 'http://miky2184.ddns.net:4000/wbs';
+  private apiUrl = 'https://miky2184.ddns.net:4000/wbs';
 
   constructor(private http: HttpClient) {}
 

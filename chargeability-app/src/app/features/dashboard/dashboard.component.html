@@ -1,1 +1,24 @@
-<p>dashboard works!</p>
+<ngx-datatable
+  class="bootstrap"
+  [rows]="forecastData"
+  [columns]="[
+    { prop: 'eid', name: 'EID' },
+    { prop: 'fiscal_year', name: 'FY' },
+    { prop: 'yy_cal', name: 'Anno Calendario' },
+    { prop: 'mm_cal', name: 'Mese Calendario' },
+    { prop: 'fortnight', name: 'Quindicina' },
+    { prop: 'tot_hour', name: 'Ore Totali' },
+    { prop: 'work_hh', name: 'Ore Lavorate' },
+    { prop: 'chg', name: 'Chargeability' },
+    { prop: 'hh_chg', name: 'Ore Lavorate CHG' },
+    { prop: 'hh_no_chg', name: 'Ore Lavorate NO CHG' },
+    { prop: 'calc_meeting_time', name: 'MT Calcolato' },
+    { prop: 'hh_no_chg_to_assign', name: 'Ore NO CHG da assegnare' }
+  ]"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [limit]="10"
+>
+</ngx-datatable>

@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class ResourceService {
-  private apiUrl = 'http://miky2184.ddns.net:4000/resources';
+  private apiUrl = 'https://miky2184.ddns.net:4000/resources';
 
   constructor(private http: HttpClient) {}
 

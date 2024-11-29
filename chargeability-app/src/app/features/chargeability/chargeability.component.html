@@ -3,9 +3,16 @@
   [rows]="chargeabilityData"
   [columns]="[
     { prop: 'eid', name: 'EID' },
-    { prop: 'work_hh', name: 'Work Hours' },
-    { prop: 'chg', name: 'CHG %' },
-    { prop: 'hh_no_chg_to_assign', name: 'HH NO CHG to Assign' }
+    { prop: 'fiscal_year', name: 'FY' },
+    { prop: 'yy_cal', name: 'Anno Calendario' },
+    { prop: 'mm_cal', name: 'Mese Calendario' },
+    { prop: 'tot_hours', name: 'Ore Totali' },
+    { prop: 'work_hh', name: 'Ore Lavorate' },
+    { prop: 'work_hh_chg', name: 'Ore Lavorate CHG' },
+    { prop: 'work_hh_nochg', name: 'Ore Lavorate NO CHG' },
+    { prop: 'work_hh_no_impact', name: 'Ore Lavorate NO IMPACT' },
+    { prop: 'chg_mm', name: 'CHG Mensile' },
+    { prop: 'chg_yy', name: 'CHG Annuale' }
   ]"
   [columnMode]="'force'"
   [headerHeight]="50"

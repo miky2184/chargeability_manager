@@ -15,26 +15,34 @@
   />
   <input
     type="number"
-    placeholder="FY"
+    placeholder="Cerca per FY"
     [(ngModel)]="filters.fiscal_year"
     (input)="applyFilter()"
     class="form-control"
   />
     <input
     type="number"
-    placeholder="Anno Calendario"
+    placeholder="Cerca per Anno Calendario"
     [(ngModel)]="filters.yy_cal"
     (input)="applyFilter()"
     class="form-control"
   />
      <input
     type="number"
-    placeholder="Mese Calendario"
+    placeholder="Cerca per Mese Calendario"
     [(ngModel)]="filters.mm_cal"
     (input)="applyFilter()"
     class="form-control"
   />
+   <input
+    type="number"
+    placeholder="Cerca per Quindicina"
+    [(ngModel)]="filters.fortnight"
+    (input)="applyFilter()"
+    class="form-control"
+  />
     <button mat-raised-button color="primary" (click)="exportToPDF()">Esporta in PDF</button>
+   <button mat-raised-button color="primary" (click)="generaForecast()">Genera Forecast</button>
   </div>
   <ngx-datatable
     class="bootstrap"
@@ -53,6 +61,6 @@
     [headerHeight]="50"
     [footerHeight]="50"
     [rowHeight]="'auto'"
-    [limit]="25"
+    [limit]="10"
   >
   </ngx-datatable>

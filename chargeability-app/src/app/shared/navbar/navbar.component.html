@@ -1,9 +1,15 @@
 <mat-toolbar color="primary">
-  <span>WBS & Chargeability App Manager</span>
+  <!-- Titolo o logo -->
+  <span class="mat-toolbar-logo">WBS & Chargeability Manager</span>
+
+  <!-- Link di navigazione -->
   <span class="spacer"></span>
-  <a mat-button routerLink="/dashboard" routerLinkActive="active">Dashboard</a>
-  <a mat-button routerLink="/time-reports" routerLinkActive="active">Report</a>
-  <a mat-button routerLink="/employees" routerLinkActive="active">Employees</a>
-  <a mat-button routerLink="/wbs" routerLinkActive="active">WBS</a>
-  <a mat-button routerLink="/chargeability" routerLinkActive="active">Chargeability</a>
+  <button mat-button routerLink="/dashboard">Dashboard</button>
+  <button mat-button routerLink="/time-reports">Time Reports</button>
+  <button mat-button routerLink="/wbs">WBS</button>
+  <button mat-button routerLink="/employees">Employees</button>
+  <button mat-button routerLink="/chargeability">Chargeability</button>
+
+  <!-- Logout -->
+  <button mat-raised-button color="warn" (click)="logout()">Logout</button>
 </mat-toolbar>

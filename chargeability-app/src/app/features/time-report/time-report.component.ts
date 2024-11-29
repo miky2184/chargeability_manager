@@ -27,7 +27,8 @@ export class TimeReportComponent implements OnInit {
     wbs: '',
     fiscal_year: null,
     yy_cal: null,
-    mm_cal: null
+    mm_cal: null,
+    fortnight: null
   };
 
   constructor(private timeReportsService: TimeReportsService) {}
@@ -64,8 +65,12 @@ export class TimeReportComponent implements OnInit {
      const matchesMmCal = this.filters.mm_cal
         ? row.mm_cal.includes(String(this.filters.mm_cal))
         : true;
+     const matchesFortnight = this.filters.fortnight
+        ? row.fortnight === this.filters.fortnight
+        : true;
 
-      return matchesWbs && matchesYear && matchesEid && matchesYyCal && matchesMmCal;
+
+      return matchesWbs && matchesYear && matchesEid && matchesYyCal && matchesMmCal && matchesFortnight;
     });
   }
 
@@ -94,5 +99,8 @@ export class TimeReportComponent implements OnInit {
 
     // Salva il PDF
     doc.save('time-reports.pdf');
+  }
+
+  generaForecast(): void {
   }
 }

@@ -5,12 +5,12 @@ import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
-export class ChargeabilityService {
-  private apiUrl = 'https://miky2184.ddns.net:4000/chargeability';
+export class DashboardService {
+  private apiUrl = 'https://miky2184.ddns.net:4000/forecast';
 
   constructor(private http: HttpClient) {}
 
-  getChargeability(): Observable<any[]> {
+  getForecast(): Observable<any[]> {
     return this.http.get<any[]>(this.apiUrl);
   }
 }

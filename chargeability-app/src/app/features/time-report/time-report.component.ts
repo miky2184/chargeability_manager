@@ -8,18 +8,27 @@ import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import { FormsModule } from '@angular/forms';
 
 
 @Component({
   selector: 'app-time-report',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, NgxDatatableModule, MatTableModule, MatPaginatorModule, MatSortModule], // Importa CommonModule per direttive come *ngIf e *ngFor
+  imports: [CommonModule, FormsModule, MatButtonModule, NgxDatatableModule, MatTableModule, MatPaginatorModule, MatSortModule], // Importa CommonModule per direttive come *ngIf e *ngFor
   templateUrl: './time-report.component.html',
   styleUrls: ['./time-report.component.css'],
 })
 export class TimeReportComponent implements OnInit {
   timeReports: any[] = [];
+  filteredData: any[] = [];
   isLoading = true;
+  filters = {
+    eid: '',
+    wbs: '',
+    fiscal_year: null,
+    yy_cal: null,
+    mm_cal: null
+  };
 
   constructor(private timeReportsService: TimeReportsService) {}
 
@@ -28,6 +37,7 @@ export class TimeReportComponent implements OnInit {
       (data) => {
         console.log('Dati ricevuti:', data); // Log dei dati per debug
         this.timeReports = data;
+        this.filteredData = [...this.timeReports];
         this.isLoading = false;
       },
       (error) => {
@@ -35,6 +45,28 @@ export class TimeReportComponent implements OnInit {
         this.isLoading = false;
       }
     );
+  }
+
+  applyFilter(): void {
+    this.filteredData = this.timeReports.filter((row) => {
+      const matchesWbs = this.filters.wbs
+        ? row.wbs.toLowerCase().includes(this.filters.wbs.toLowerCase())
+        : true;
+      const matchesYear = this.filters.fiscal_year
+        ? row.fiscal_year === this.filters.fiscal_year
+        : true;
+     const matchesEid = this.filters.eid
+      ? row.eid.toLowerCase().includes(this.filters.eid.toLowerCase())
+      : true;
+     const matchesYyCal = this.filters.yy_cal
+        ? row.yy_cal === this.filters.yy_cal
+        : true;
+     const matchesMmCal = this.filters.mm_cal
+        ? row.mm_cal.includes(String(this.filters.mm_cal))
+        : true;
+
+      return matchesWbs && matchesYear && matchesEid && matchesYyCal && matchesMmCal;
+    });
   }
 
   exportToPDF(): void {
@@ -47,14 +79,16 @@ export class TimeReportComponent implements OnInit {
     // Genera la tabella
     autoTable(doc, {
       startY: 20,
-      head: [['EID', 'Anno', 'Mese', 'Progetto', 'Ore (TR1)', 'Ore (TR2)']],
-      body: this.timeReports.map((report) => [
+      head: [['EID', 'WBS', 'FY', 'Anno', 'Mese', 'Quindicina', 'H Lavorate']],
+      body: this.filteredData.map((report) => [
         report.eid,
+        report.wbs,
+        report.fiscal_year,
         report.yy_cal,
         report.mm_cal,
         report.project_name,
-        report.work_hh_tr1,
-        report.work_hh_tr2,
+        report.fortnight,
+        report.work_hh,
       ]),
     });
 

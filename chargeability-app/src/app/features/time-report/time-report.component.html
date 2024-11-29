@@ -1,11 +1,44 @@
-<div *ngIf="isLoading">Caricamento in corso...</div>
-<div *ngIf="!isLoading && timeReports.length > 0">
-  <div class="action-bar">
+ <div class="action-bar">
+     <input
+    type="text"
+    placeholder="Cerca per EID"
+    [(ngModel)]="filters.eid"
+    (input)="applyFilter()"
+    class="form-control"
+  />
+      <input
+    type="text"
+    placeholder="Cerca per WBS"
+    [(ngModel)]="filters.wbs"
+    (input)="applyFilter()"
+    class="form-control"
+  />
+  <input
+    type="number"
+    placeholder="FY"
+    [(ngModel)]="filters.fiscal_year"
+    (input)="applyFilter()"
+    class="form-control"
+  />
+    <input
+    type="number"
+    placeholder="Anno Calendario"
+    [(ngModel)]="filters.yy_cal"
+    (input)="applyFilter()"
+    class="form-control"
+  />
+     <input
+    type="number"
+    placeholder="Mese Calendario"
+    [(ngModel)]="filters.mm_cal"
+    (input)="applyFilter()"
+    class="form-control"
+  />
     <button mat-raised-button color="primary" (click)="exportToPDF()">Esporta in PDF</button>
   </div>
   <ngx-datatable
     class="bootstrap"
-    [rows]="timeReports"
+    [rows]="filteredData"
     [columns]="[
       { prop: 'eid', name: 'EID' },
       { prop: 'wbs', name: 'WBS' },
@@ -23,7 +56,3 @@
     [limit]="25"
   >
   </ngx-datatable>
-</div>
-<div *ngIf="!isLoading && timeReports.length === 0">
-  Nessun dato disponibile.
-</div>

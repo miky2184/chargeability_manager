@@ -40,4 +40,8 @@ export class AuthService {
   isAuthenticated(): boolean {
     return !!this.getToken();
   }
+
+  register(userData: { username: string; password: string; email: string }): Observable<any> {
+    return this.http.post('https://miky2184.ddns.net:4000/register', userData);
+  }
 }
